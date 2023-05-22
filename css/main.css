@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Faustina:wght@300;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply font-serif text-xl font-medium;
+  }
+  @media (min-width: 640px) {
+    h1 {
+      @apply font-serif text-h1 font-medium;
+    }
+  }
+
+  h2 {
+    @apply font-serif text-lg font-medium;
+  }
+  @media (min-width: 640px) {
+    h2 {
+      @apply font-serif text-h2 font-medium;
+    }
+  }
+
+  h3 {
+    @apply font-serif text-lg font-medium;
+  }
+  @media (min-width: 640px) {
+    h3 {
+      @apply font-serif text-h3 font-medium;
+    }
+  }
+
+  h4 {
+    @apply font-serif text-h4 font-medium;
+  }
+  h5 {
+    @apply font-serif text-h5 font-bold;
+  }
+}
+
+@layer components {
+  .font-large {
+    @apply font-serif text-lg font-light;
+  }
+  .font-base {
+    @apply font-serif text-base font-light;
+  }
+  .font-small {
+    @apply font-serif text-sm font-light;
+  }
+  .font-label-lg {
+    @apply font-sans text-label-lg font-normal uppercase;
+  }
+  .font-label-md {
+    @apply font-sans text-label-md font-bold uppercase;
+  }
+  .font-label-sm {
+    @apply font-sans text-label-md font-normal uppercase;
+  }
+}

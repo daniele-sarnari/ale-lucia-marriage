@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/dist/index.css" rel="stylesheet" />
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.min.js"
+      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+  </head>
+  <body
+    class="bg-cover bg-fixed bg-center bg-no-repeat"
+    style="background-image: url(/public/background.webp)"
+  >
+    <div class="flex items-center justify-between bg-white px-8 py-4">
+      <h3 class="text-primary">A&L</h3>
+      <button id="menu-open">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="white"
+          class="h-7 w-11 rounded-full bg-primary px-3"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      id="menu"
+      class="absolute top-4 hidden w-full translate-x-full transition-transform duration-300 ease-out"
+    >
+      <div class="mx-4 bg-gray-100 px-4 pb-4">
+        <div class="mb-4 flex items-center justify-between">
+          <h3 class="text-primary">A&L</h3>
+          <button id="menu-close" class="mr-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="black"
+              class="h-6 w-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <ul class="font-label-sm list-none text-secondary">
+          <li class="mb-1">Programma</li>
+          <li class="mb-1">Luoghi</li>
+          <li class="mb-1">Dove Alloggiare</li>
+          <li class="mb-1">Cosa Visitare</li>
+          <li>Lista nozze</li>
+        </ul>
+      </div>
+    </div>
+    <div
+      class="my-8 flex h-128 flex-col items-center justify-around px-8 py-8 text-center"
+    >
+      <h1 class="text-secondary">Alessandro<br />e Lucia</h1>
+      <div class="font-label-lg flex flex-col items-center">
+        <div class="text-primary">16.09.2023<br />11.00<br />Quinto Vic.No</div>
+        <button class="mt-6 rounded-md bg-primary px-4 py-2 text-white">
+          R S V P
+        </button>
+      </div>
+    </div>
+    <div
+      class="my-8 flex h-128 flex-col items-center justify-around bg-white px-8 py-8 text-secondary"
+    >
+      <div>
+        <div
+          class="font-label-lg mb-12 text-label-lg underline underline-offset-10"
+        >
+          Ci vediamo presto
+        </div>
+        <div class="grid grid-cols-2 gap-4 text-center">
+          <div>
+            <h2 id="countdown-weeks"></h2>
+            <div class="font-label-sm text-label-sm">settimane</div>
+          </div>
+          <div>
+            <h2 id="countdown-days"></h2>
+            <div class="font-label-sm text-label-sm">giorni</div>
+          </div>
+          <div>
+            <h2 id="countdown-hours"></h2>
+            <div class="font-label-sm text-label-sm">ore</div>
+          </div>
+          <div>
+            <h2 id="countdown-minutes"></h2>
+            <div class="font-label-sm text-label-sm">minuti</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const countdownInterval = null;
+    const eventTime = new Date("09/16/2023").getTime();
+    const currentTime = new Date().getTime();
+    const diffTime = eventTime - currentTime;
+    const interval = 60000;
+    var duration = moment.duration(diffTime, "milliseconds");
+
+    const countdownDom = {
+      weeks: $("#countdown-weeks"),
+      days: $("#countdown-days"),
+      hours: $("#countdown-hours"),
+      minutes: $("#countdown-minutes"),
+    };
+
+    $("#menu-open").on("click", function () {
+      $("#menu").removeClass("hidden").removeClass("translate-x-full");
+      $("#menu").addClass("block").addClass("translate-x-0");
+    });
+
+    $("#menu-close").on("click", function () {
+      $("#menu").removeClass("block").removeClass("translate-x-0");
+      $("#menu").addClass("hidden").addClass("translate-x-full");
+    });
+
+    // Create Countdown
+    function countdown() {
+      if (diffTime > 0) {
+        console.log("duration", duration);
+        console.log("interval", interval);
+        duration = moment.duration(duration - interval, "milliseconds");
+
+        const weeks = Math.floor(duration.asDays() / 7);
+        const days = Math.floor(duration.asDays() - weeks * 7);
+
+        // replace the contents of the div with the link text
+        countdownDom.weeks.html(weeks);
+        countdownDom.days.html(days);
+        countdownDom.hours.html(duration.hours());
+        countdownDom.minutes.html(duration.minutes());
+      } else {
+        clearInterval(this.countdownInterval);
+      }
+    }
+
+    window.onload = (event) => {
+      countdown();
+
+      this.countdownInterval = setInterval(countdown, interval);
+    };
+  </script>
+</html>
