@@ -25,7 +25,7 @@
   }
 
   h3 {
-    @apply font-serif text-lg font-medium;
+    @apply font-serif text-h3 font-medium;
   }
   @media (min-width: 640px) {
     h3 {
